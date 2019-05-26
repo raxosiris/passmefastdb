@@ -1,0 +1,156 @@
+# The zendesk IDs will be added later, along with more fields. This is much simpler version for the MVP
+
+# Booking agent
+type Agent {
+  id: ID! @unique
+  zenId: Int @unique
+  name: String!
+  email: String @unique
+  booking: [Booking!]!
+}
+
+# Instructor (ADI)
+type Instructor{
+  id: ID! @unique
+  bookings: [Booking!]!
+  zenId: Int @unique  # If they have a zendesk ID
+  debt: [Debt!]!
+  name: String!
+  joinedOn: DateTime
+  phone: String
+  email: String
+  city: String
+  address: String
+  postcode: String
+}
+
+# Student (customer)
+type Student{
+  id: ID! @unique
+  bookings: [Booking!]!
+  zenId: Int @unique  # If they have a zendesk ID
+  name: String!
+  phone: String
+  email: String
+}
+
+# Booking (Sales)
+type Booking {
+  id: ID! @unique
+  zenId: Int @unique  # If they have a zendesk ID
+  name: String!
+  bookedAt: DateTime
+  debt: Debt @unique
+  agent: Agent!
+  student: Student
+  amount: Float!
+  instructor: [Instructor!]! # It is not essental that every booking from the CRM has an instructor, but every debt must.
+}
+
+
+enum DebtStatus{
+  NEEDSCHASING
+  CHASED
+  PAYMENTAGREED
+  BADDEBT
+  FULLYPAID
+}
+
+# Debt
+type Debt {
+  id: ID! @unique
+  booking: Booking @unique
+  agent: Agent
+  instructor: Instructor!
+  initialAmount: Float! # The initial total amount of the debt
+  currentAmount: Float! # The current amount of the debt after all associated payment reductions
+  paidOff: Boolean @default(value: "false")
+  status: DebtStatus @default(value: "NEEDSCHASING")
+  dueSince: DateTime
+  notes: String
+  chases: [DebtChase!]! @relation(name: "DebtChases", onDelete: CASCADE)
+  payments: [Payment!]! @relation(name: "DebtPayments", onDelete: CASCADE) # A debt can have multiple payments
+}
+
+type DebtChase {
+  id: ID! @unique
+  debt: Debt! @relation(name: "DebtChases", onDelete: SET_NULL)
+  notes: String
+  chasedOn: DateTime!
+  chasedBy: Agent # This should defalt to the current agent for now or left empty
+}
+
+type Payment {
+  id: ID! @unique
+  paidOn: DateTime
+  debt: Debt! @relation(name: "DebtPayments", onDelete: SET_NULL)
+  amount: Float!
+  notes: String
+}
+
+enum PracticalTestStatus{
+  NEEDSCONFIRMING
+  CONFIRMED
+  CHANGED
+}
+
+type PracticalTest {
+  id: ID! @unique
+  gmailId: String @unique
+  checkTelephone: String
+  studentName: String @unique
+  location: String
+  testDate: DateTime
+  lastChangeDate: DateTime
+  reference:String! @unique
+  booking: Booking
+  emailContent: String
+  isConfirmed: Boolean! @default(value: "false")
+  status: PracticalTestStatus! @default(value:"NEEDSCONFIRMING")
+
+}
+
+type FastTrackTest {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  studentName: String
+  area: String
+  dealOwner: String
+  instructor: String
+  testCentrePrimary: String
+  testCentreSecondary: String
+  drivinglicense: String! @unique
+  applicationRef: String! @unique
+  studentPostcode: String
+  searchPostcode: String
+  startDate: String
+  endDate: String
+  hoursToAvoid: [Int!]!
+  daysToAvoid: [Int!]!
+  datesToAvoid: [Int!]!
+  testCentres: [Int!]!
+  specificDays: [Int!]!
+  specificDates: [Int!]!
+  specificHours: [Int!]!
+  booked: Boolean @default(value: "false")
+  bookedDate: DateTime
+  bookedCentre: Int
+  timeWhenBooked: DateTime
+  minimumDelay: Int
+  postcode: String
+  stopLooking: Boolean
+}
+
+type LatestHistoryId {
+  id: ID! @unique
+  latestId: String @unique
+  reference: String @unique @default(value:"latest")
+}
+
+type TestCentre {
+  centreId: Int! @unique
+  name: String
+  postcode: String!
+  city: String
+}
