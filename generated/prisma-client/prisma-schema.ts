@@ -1371,8 +1371,8 @@ type FastTrackTest {
   applicationRef: String!
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: [Int!]!
   daysToAvoid: [Int!]!
   datesToAvoid: [Int!]!
@@ -1418,8 +1418,8 @@ input FastTrackTestCreateInput {
   applicationRef: String!
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: FastTrackTestCreatehoursToAvoidInput
   daysToAvoid: FastTrackTestCreatedaysToAvoidInput
   datesToAvoid: FastTrackTestCreatedatesToAvoidInput
@@ -1518,8 +1518,8 @@ type FastTrackTestPreviousValues {
   applicationRef: String!
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: [Int!]!
   daysToAvoid: [Int!]!
   datesToAvoid: [Int!]!
@@ -1577,8 +1577,8 @@ input FastTrackTestUpdateInput {
   applicationRef: String
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: FastTrackTestUpdatehoursToAvoidInput
   daysToAvoid: FastTrackTestUpdatedaysToAvoidInput
   datesToAvoid: FastTrackTestUpdatedatesToAvoidInput
@@ -1606,8 +1606,8 @@ input FastTrackTestUpdateManyMutationInput {
   applicationRef: String
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: FastTrackTestUpdatehoursToAvoidInput
   daysToAvoid: FastTrackTestUpdatedaysToAvoidInput
   datesToAvoid: FastTrackTestUpdatedatesToAvoidInput
@@ -1811,34 +1811,22 @@ input FastTrackTestWhereInput {
   searchPostcode_not_starts_with: String
   searchPostcode_ends_with: String
   searchPostcode_not_ends_with: String
-  startDate: String
-  startDate_not: String
-  startDate_in: [String!]
-  startDate_not_in: [String!]
-  startDate_lt: String
-  startDate_lte: String
-  startDate_gt: String
-  startDate_gte: String
-  startDate_contains: String
-  startDate_not_contains: String
-  startDate_starts_with: String
-  startDate_not_starts_with: String
-  startDate_ends_with: String
-  startDate_not_ends_with: String
-  endDate: String
-  endDate_not: String
-  endDate_in: [String!]
-  endDate_not_in: [String!]
-  endDate_lt: String
-  endDate_lte: String
-  endDate_gt: String
-  endDate_gte: String
-  endDate_contains: String
-  endDate_not_contains: String
-  endDate_starts_with: String
-  endDate_not_starts_with: String
-  endDate_ends_with: String
-  endDate_not_ends_with: String
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
   booked: Boolean
   booked_not: Boolean
   bookedDate: DateTime
