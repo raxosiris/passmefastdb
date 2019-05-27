@@ -124,8 +124,8 @@ type FastTrackTest {
   applicationRef: String! @unique
   studentPostcode: String
   searchPostcode: String
-  startDate: String
-  endDate: String
+  startDate: DateTime
+  endDate: DateTime
   hoursToAvoid: [Int!]!
   daysToAvoid: [Int!]!
   datesToAvoid: [Int!]!
