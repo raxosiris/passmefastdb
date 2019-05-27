@@ -24,6 +24,7 @@ export interface Exists {
   payment: (where?: PaymentWhereInput) => Promise<boolean>;
   practicalTest: (where?: PracticalTestWhereInput) => Promise<boolean>;
   student: (where?: StudentWhereInput) => Promise<boolean>;
+  testCentre: (where?: TestCentreWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -237,6 +238,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => StudentConnectionPromise;
+  testCentre: (where: TestCentreWhereUniqueInput) => TestCentrePromise;
+  testCentres: (args?: {
+    where?: TestCentreWhereInput;
+    orderBy?: TestCentreOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<TestCentre>;
+  testCentresConnection: (args?: {
+    where?: TestCentreWhereInput;
+    orderBy?: TestCentreOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TestCentreConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -417,6 +437,22 @@ export interface Prisma {
   }) => StudentPromise;
   deleteStudent: (where: StudentWhereUniqueInput) => StudentPromise;
   deleteManyStudents: (where?: StudentWhereInput) => BatchPayloadPromise;
+  createTestCentre: (data: TestCentreCreateInput) => TestCentrePromise;
+  updateTestCentre: (args: {
+    data: TestCentreUpdateInput;
+    where: TestCentreWhereUniqueInput;
+  }) => TestCentrePromise;
+  updateManyTestCentres: (args: {
+    data: TestCentreUpdateManyMutationInput;
+    where?: TestCentreWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTestCentre: (args: {
+    where: TestCentreWhereUniqueInput;
+    create: TestCentreCreateInput;
+    update: TestCentreUpdateInput;
+  }) => TestCentrePromise;
+  deleteTestCentre: (where: TestCentreWhereUniqueInput) => TestCentrePromise;
+  deleteManyTestCentres: (where?: TestCentreWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -456,6 +492,9 @@ export interface Subscription {
   student: (
     where?: StudentSubscriptionWhereInput
   ) => StudentSubscriptionPayloadSubscription;
+  testCentre: (
+    where?: TestCentreSubscriptionWhereInput
+  ) => TestCentreSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -640,6 +679,16 @@ export type StudentOrderByInput =
   | "phone_DESC"
   | "email_ASC"
   | "email_DESC";
+
+export type TestCentreOrderByInput =
+  | "centreId_ASC"
+  | "centreId_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "postcode_ASC"
+  | "postcode_DESC"
+  | "city_ASC"
+  | "city_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -1613,6 +1662,66 @@ export type StudentWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
   zenId?: Int;
 }>;
+
+export type TestCentreWhereUniqueInput = AtLeastOne<{
+  centreId: Int;
+}>;
+
+export interface TestCentreWhereInput {
+  centreId?: Int;
+  centreId_not?: Int;
+  centreId_in?: Int[] | Int;
+  centreId_not_in?: Int[] | Int;
+  centreId_lt?: Int;
+  centreId_lte?: Int;
+  centreId_gt?: Int;
+  centreId_gte?: Int;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  postcode?: String;
+  postcode_not?: String;
+  postcode_in?: String[] | String;
+  postcode_not_in?: String[] | String;
+  postcode_lt?: String;
+  postcode_lte?: String;
+  postcode_gt?: String;
+  postcode_gte?: String;
+  postcode_contains?: String;
+  postcode_not_contains?: String;
+  postcode_starts_with?: String;
+  postcode_not_starts_with?: String;
+  postcode_ends_with?: String;
+  postcode_not_ends_with?: String;
+  city?: String;
+  city_not?: String;
+  city_in?: String[] | String;
+  city_not_in?: String[] | String;
+  city_lt?: String;
+  city_lte?: String;
+  city_gt?: String;
+  city_gte?: String;
+  city_contains?: String;
+  city_not_contains?: String;
+  city_starts_with?: String;
+  city_not_starts_with?: String;
+  city_ends_with?: String;
+  city_not_ends_with?: String;
+  AND?: TestCentreWhereInput[] | TestCentreWhereInput;
+  OR?: TestCentreWhereInput[] | TestCentreWhereInput;
+  NOT?: TestCentreWhereInput[] | TestCentreWhereInput;
+}
 
 export interface AgentCreateInput {
   zenId?: Int;
@@ -3112,6 +3221,27 @@ export interface StudentUpdateManyMutationInput {
   email?: String;
 }
 
+export interface TestCentreCreateInput {
+  centreId: Int;
+  name?: String;
+  postcode: String;
+  city?: String;
+}
+
+export interface TestCentreUpdateInput {
+  centreId?: Int;
+  name?: String;
+  postcode?: String;
+  city?: String;
+}
+
+export interface TestCentreUpdateManyMutationInput {
+  centreId?: Int;
+  name?: String;
+  postcode?: String;
+  city?: String;
+}
+
 export interface AgentSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
@@ -3238,6 +3368,17 @@ export interface StudentSubscriptionWhereInput {
   AND?: StudentSubscriptionWhereInput[] | StudentSubscriptionWhereInput;
   OR?: StudentSubscriptionWhereInput[] | StudentSubscriptionWhereInput;
   NOT?: StudentSubscriptionWhereInput[] | StudentSubscriptionWhereInput;
+}
+
+export interface TestCentreSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TestCentreWhereInput;
+  AND?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
+  OR?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
+  NOT?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
 }
 
 export interface NodeNode {
@@ -4319,6 +4460,85 @@ export interface AggregateStudentSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface TestCentre {
+  centreId: Int;
+  name?: String;
+  postcode: String;
+  city?: String;
+}
+
+export interface TestCentrePromise extends Promise<TestCentre>, Fragmentable {
+  centreId: () => Promise<Int>;
+  name: () => Promise<String>;
+  postcode: () => Promise<String>;
+  city: () => Promise<String>;
+}
+
+export interface TestCentreSubscription
+  extends Promise<AsyncIterator<TestCentre>>,
+    Fragmentable {
+  centreId: () => Promise<AsyncIterator<Int>>;
+  name: () => Promise<AsyncIterator<String>>;
+  postcode: () => Promise<AsyncIterator<String>>;
+  city: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TestCentreConnection {
+  pageInfo: PageInfo;
+  edges: TestCentreEdge[];
+}
+
+export interface TestCentreConnectionPromise
+  extends Promise<TestCentreConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TestCentreEdge>>() => T;
+  aggregate: <T = AggregateTestCentrePromise>() => T;
+}
+
+export interface TestCentreConnectionSubscription
+  extends Promise<AsyncIterator<TestCentreConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TestCentreEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTestCentreSubscription>() => T;
+}
+
+export interface TestCentreEdge {
+  node: TestCentre;
+  cursor: String;
+}
+
+export interface TestCentreEdgePromise
+  extends Promise<TestCentreEdge>,
+    Fragmentable {
+  node: <T = TestCentrePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TestCentreEdgeSubscription
+  extends Promise<AsyncIterator<TestCentreEdge>>,
+    Fragmentable {
+  node: <T = TestCentreSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateTestCentre {
+  count: Int;
+}
+
+export interface AggregateTestCentrePromise
+  extends Promise<AggregateTestCentre>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTestCentreSubscription
+  extends Promise<AsyncIterator<AggregateTestCentre>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -4955,6 +5175,56 @@ export interface StudentPreviousValuesSubscription
   email: () => Promise<AsyncIterator<String>>;
 }
 
+export interface TestCentreSubscriptionPayload {
+  mutation: MutationType;
+  node: TestCentre;
+  updatedFields: String[];
+  previousValues: TestCentrePreviousValues;
+}
+
+export interface TestCentreSubscriptionPayloadPromise
+  extends Promise<TestCentreSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TestCentrePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TestCentrePreviousValuesPromise>() => T;
+}
+
+export interface TestCentreSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TestCentreSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TestCentreSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TestCentrePreviousValuesSubscription>() => T;
+}
+
+export interface TestCentrePreviousValues {
+  centreId: Int;
+  name?: String;
+  postcode: String;
+  city?: String;
+}
+
+export interface TestCentrePreviousValuesPromise
+  extends Promise<TestCentrePreviousValues>,
+    Fragmentable {
+  centreId: () => Promise<Int>;
+  name: () => Promise<String>;
+  postcode: () => Promise<String>;
+  city: () => Promise<String>;
+}
+
+export interface TestCentrePreviousValuesSubscription
+  extends Promise<AsyncIterator<TestCentrePreviousValues>>,
+    Fragmentable {
+  centreId: () => Promise<AsyncIterator<Int>>;
+  name: () => Promise<AsyncIterator<String>>;
+  postcode: () => Promise<AsyncIterator<String>>;
+  city: () => Promise<AsyncIterator<String>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -5044,6 +5314,10 @@ export const models: Model[] = [
   },
   {
     name: "LatestHistoryId",
+    embedded: false
+  },
+  {
+    name: "TestCentre",
     embedded: false
   }
 ];

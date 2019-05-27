@@ -237,6 +237,10 @@ type AggregateStudent {
   count: Int!
 }
 
+type AggregateTestCentre {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -2551,6 +2555,12 @@ type Mutation {
   upsertStudent(where: StudentWhereUniqueInput!, create: StudentCreateInput!, update: StudentUpdateInput!): Student!
   deleteStudent(where: StudentWhereUniqueInput!): Student
   deleteManyStudents(where: StudentWhereInput): BatchPayload!
+  createTestCentre(data: TestCentreCreateInput!): TestCentre!
+  updateTestCentre(data: TestCentreUpdateInput!, where: TestCentreWhereUniqueInput!): TestCentre
+  updateManyTestCentres(data: TestCentreUpdateManyMutationInput!, where: TestCentreWhereInput): BatchPayload!
+  upsertTestCentre(where: TestCentreWhereUniqueInput!, create: TestCentreCreateInput!, update: TestCentreUpdateInput!): TestCentre!
+  deleteTestCentre(where: TestCentreWhereUniqueInput!): TestCentre
+  deleteManyTestCentres(where: TestCentreWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -3096,6 +3106,9 @@ type Query {
   student(where: StudentWhereUniqueInput!): Student
   students(where: StudentWhereInput, orderBy: StudentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Student]!
   studentsConnection(where: StudentWhereInput, orderBy: StudentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StudentConnection!
+  testCentre(where: TestCentreWhereUniqueInput!): TestCentre
+  testCentres(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TestCentre]!
+  testCentresConnection(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestCentreConnection!
   node(id: ID!): Node
 }
 
@@ -3303,5 +3316,141 @@ type Subscription {
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   practicalTest(where: PracticalTestSubscriptionWhereInput): PracticalTestSubscriptionPayload
   student(where: StudentSubscriptionWhereInput): StudentSubscriptionPayload
+  testCentre(where: TestCentreSubscriptionWhereInput): TestCentreSubscriptionPayload
+}
+
+type TestCentre {
+  centreId: Int!
+  name: String
+  postcode: String!
+  city: String
+}
+
+type TestCentreConnection {
+  pageInfo: PageInfo!
+  edges: [TestCentreEdge]!
+  aggregate: AggregateTestCentre!
+}
+
+input TestCentreCreateInput {
+  centreId: Int!
+  name: String
+  postcode: String!
+  city: String
+}
+
+type TestCentreEdge {
+  node: TestCentre!
+  cursor: String!
+}
+
+enum TestCentreOrderByInput {
+  centreId_ASC
+  centreId_DESC
+  name_ASC
+  name_DESC
+  postcode_ASC
+  postcode_DESC
+  city_ASC
+  city_DESC
+}
+
+type TestCentrePreviousValues {
+  centreId: Int!
+  name: String
+  postcode: String!
+  city: String
+}
+
+type TestCentreSubscriptionPayload {
+  mutation: MutationType!
+  node: TestCentre
+  updatedFields: [String!]
+  previousValues: TestCentrePreviousValues
+}
+
+input TestCentreSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TestCentreWhereInput
+  AND: [TestCentreSubscriptionWhereInput!]
+  OR: [TestCentreSubscriptionWhereInput!]
+  NOT: [TestCentreSubscriptionWhereInput!]
+}
+
+input TestCentreUpdateInput {
+  centreId: Int
+  name: String
+  postcode: String
+  city: String
+}
+
+input TestCentreUpdateManyMutationInput {
+  centreId: Int
+  name: String
+  postcode: String
+  city: String
+}
+
+input TestCentreWhereInput {
+  centreId: Int
+  centreId_not: Int
+  centreId_in: [Int!]
+  centreId_not_in: [Int!]
+  centreId_lt: Int
+  centreId_lte: Int
+  centreId_gt: Int
+  centreId_gte: Int
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  postcode: String
+  postcode_not: String
+  postcode_in: [String!]
+  postcode_not_in: [String!]
+  postcode_lt: String
+  postcode_lte: String
+  postcode_gt: String
+  postcode_gte: String
+  postcode_contains: String
+  postcode_not_contains: String
+  postcode_starts_with: String
+  postcode_not_starts_with: String
+  postcode_ends_with: String
+  postcode_not_ends_with: String
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
+  AND: [TestCentreWhereInput!]
+  OR: [TestCentreWhereInput!]
+  NOT: [TestCentreWhereInput!]
+}
+
+input TestCentreWhereUniqueInput {
+  centreId: Int
 }
 `
