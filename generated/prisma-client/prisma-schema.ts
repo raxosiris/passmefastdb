@@ -233,6 +233,10 @@ type AggregatePracticalTest {
   count: Int!
 }
 
+type AggregateProxy {
+  count: Int!
+}
+
 type AggregateStudent {
   count: Int!
 }
@@ -2537,6 +2541,12 @@ type Mutation {
   upsertPracticalTest(where: PracticalTestWhereUniqueInput!, create: PracticalTestCreateInput!, update: PracticalTestUpdateInput!): PracticalTest!
   deletePracticalTest(where: PracticalTestWhereUniqueInput!): PracticalTest
   deleteManyPracticalTests(where: PracticalTestWhereInput): BatchPayload!
+  createProxy(data: ProxyCreateInput!): Proxy!
+  updateProxy(data: ProxyUpdateInput!, where: ProxyWhereUniqueInput!): Proxy
+  updateManyProxies(data: ProxyUpdateManyMutationInput!, where: ProxyWhereInput): BatchPayload!
+  upsertProxy(where: ProxyWhereUniqueInput!, create: ProxyCreateInput!, update: ProxyUpdateInput!): Proxy!
+  deleteProxy(where: ProxyWhereUniqueInput!): Proxy
+  deleteManyProxies(where: ProxyWhereInput): BatchPayload!
   createStudent(data: StudentCreateInput!): Student!
   updateStudent(data: StudentUpdateInput!, where: StudentWhereUniqueInput!): Student
   updateManyStudents(data: StudentUpdateManyMutationInput!, where: StudentWhereInput): BatchPayload!
@@ -3063,6 +3073,213 @@ input PracticalTestWhereUniqueInput {
   reference: String
 }
 
+type Proxy {
+  proxy: String!
+  username: String
+  password: String
+  ip: String!
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean
+}
+
+type ProxyConnection {
+  pageInfo: PageInfo!
+  edges: [ProxyEdge]!
+  aggregate: AggregateProxy!
+}
+
+input ProxyCreateInput {
+  proxy: String!
+  username: String
+  password: String
+  ip: String!
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean
+}
+
+type ProxyEdge {
+  node: Proxy!
+  cursor: String!
+}
+
+enum ProxyOrderByInput {
+  proxy_ASC
+  proxy_DESC
+  username_ASC
+  username_DESC
+  password_ASC
+  password_DESC
+  ip_ASC
+  ip_DESC
+  type_ASC
+  type_DESC
+  stopUseUntil_ASC
+  stopUseUntil_DESC
+  lastUsedBy_ASC
+  lastUsedBy_DESC
+  taken_ASC
+  taken_DESC
+}
+
+type ProxyPreviousValues {
+  proxy: String!
+  username: String
+  password: String
+  ip: String!
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean
+}
+
+type ProxySubscriptionPayload {
+  mutation: MutationType!
+  node: Proxy
+  updatedFields: [String!]
+  previousValues: ProxyPreviousValues
+}
+
+input ProxySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProxyWhereInput
+  AND: [ProxySubscriptionWhereInput!]
+  OR: [ProxySubscriptionWhereInput!]
+  NOT: [ProxySubscriptionWhereInput!]
+}
+
+input ProxyUpdateInput {
+  proxy: String
+  username: String
+  password: String
+  ip: String
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean
+}
+
+input ProxyUpdateManyMutationInput {
+  proxy: String
+  username: String
+  password: String
+  ip: String
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean
+}
+
+input ProxyWhereInput {
+  proxy: String
+  proxy_not: String
+  proxy_in: [String!]
+  proxy_not_in: [String!]
+  proxy_lt: String
+  proxy_lte: String
+  proxy_gt: String
+  proxy_gte: String
+  proxy_contains: String
+  proxy_not_contains: String
+  proxy_starts_with: String
+  proxy_not_starts_with: String
+  proxy_ends_with: String
+  proxy_not_ends_with: String
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  ip: String
+  ip_not: String
+  ip_in: [String!]
+  ip_not_in: [String!]
+  ip_lt: String
+  ip_lte: String
+  ip_gt: String
+  ip_gte: String
+  ip_contains: String
+  ip_not_contains: String
+  ip_starts_with: String
+  ip_not_starts_with: String
+  ip_ends_with: String
+  ip_not_ends_with: String
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  stopUseUntil: DateTime
+  stopUseUntil_not: DateTime
+  stopUseUntil_in: [DateTime!]
+  stopUseUntil_not_in: [DateTime!]
+  stopUseUntil_lt: DateTime
+  stopUseUntil_lte: DateTime
+  stopUseUntil_gt: DateTime
+  stopUseUntil_gte: DateTime
+  lastUsedBy: String
+  lastUsedBy_not: String
+  lastUsedBy_in: [String!]
+  lastUsedBy_not_in: [String!]
+  lastUsedBy_lt: String
+  lastUsedBy_lte: String
+  lastUsedBy_gt: String
+  lastUsedBy_gte: String
+  lastUsedBy_contains: String
+  lastUsedBy_not_contains: String
+  lastUsedBy_starts_with: String
+  lastUsedBy_not_starts_with: String
+  lastUsedBy_ends_with: String
+  lastUsedBy_not_ends_with: String
+  taken: Boolean
+  taken_not: Boolean
+  AND: [ProxyWhereInput!]
+  OR: [ProxyWhereInput!]
+  NOT: [ProxyWhereInput!]
+}
+
+input ProxyWhereUniqueInput {
+  ip: String
+}
+
 type Query {
   agent(where: AgentWhereUniqueInput!): Agent
   agents(where: AgentWhereInput, orderBy: AgentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Agent]!
@@ -3091,6 +3308,9 @@ type Query {
   practicalTest(where: PracticalTestWhereUniqueInput!): PracticalTest
   practicalTests(where: PracticalTestWhereInput, orderBy: PracticalTestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PracticalTest]!
   practicalTestsConnection(where: PracticalTestWhereInput, orderBy: PracticalTestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PracticalTestConnection!
+  proxy(where: ProxyWhereUniqueInput!): Proxy
+  proxies(where: ProxyWhereInput, orderBy: ProxyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Proxy]!
+  proxiesConnection(where: ProxyWhereInput, orderBy: ProxyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProxyConnection!
   student(where: StudentWhereUniqueInput!): Student
   students(where: StudentWhereInput, orderBy: StudentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Student]!
   studentsConnection(where: StudentWhereInput, orderBy: StudentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StudentConnection!
@@ -3303,6 +3523,7 @@ type Subscription {
   latestHistoryId(where: LatestHistoryIdSubscriptionWhereInput): LatestHistoryIdSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   practicalTest(where: PracticalTestSubscriptionWhereInput): PracticalTestSubscriptionPayload
+  proxy(where: ProxySubscriptionWhereInput): ProxySubscriptionPayload
   student(where: StudentSubscriptionWhereInput): StudentSubscriptionPayload
   testCentre(where: TestCentreSubscriptionWhereInput): TestCentreSubscriptionPayload
 }

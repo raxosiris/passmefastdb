@@ -154,3 +154,14 @@ type TestCentre {
   postcode: String!
   city: String
 }
+
+type Proxy {
+  proxy: String!
+  username: String
+  password: String
+  ip: String! @unique
+  type: String
+  stopUseUntil: DateTime
+  lastUsedBy: String
+  taken: Boolean @default(value:"false")
+}

@@ -23,6 +23,7 @@ export interface Exists {
   latestHistoryId: (where?: LatestHistoryIdWhereInput) => Promise<boolean>;
   payment: (where?: PaymentWhereInput) => Promise<boolean>;
   practicalTest: (where?: PracticalTestWhereInput) => Promise<boolean>;
+  proxy: (where?: ProxyWhereInput) => Promise<boolean>;
   student: (where?: StudentWhereInput) => Promise<boolean>;
   testCentre: (where?: TestCentreWhereInput) => Promise<boolean>;
 }
@@ -219,6 +220,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => PracticalTestConnectionPromise;
+  proxy: (where: ProxyWhereUniqueInput) => ProxyPromise;
+  proxies: (args?: {
+    where?: ProxyWhereInput;
+    orderBy?: ProxyOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Proxy>;
+  proxiesConnection: (args?: {
+    where?: ProxyWhereInput;
+    orderBy?: ProxyOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ProxyConnectionPromise;
   student: (where: StudentWhereUniqueInput) => StudentPromise;
   students: (args?: {
     where?: StudentWhereInput;
@@ -421,6 +441,22 @@ export interface Prisma {
   deleteManyPracticalTests: (
     where?: PracticalTestWhereInput
   ) => BatchPayloadPromise;
+  createProxy: (data: ProxyCreateInput) => ProxyPromise;
+  updateProxy: (args: {
+    data: ProxyUpdateInput;
+    where: ProxyWhereUniqueInput;
+  }) => ProxyPromise;
+  updateManyProxies: (args: {
+    data: ProxyUpdateManyMutationInput;
+    where?: ProxyWhereInput;
+  }) => BatchPayloadPromise;
+  upsertProxy: (args: {
+    where: ProxyWhereUniqueInput;
+    create: ProxyCreateInput;
+    update: ProxyUpdateInput;
+  }) => ProxyPromise;
+  deleteProxy: (where: ProxyWhereUniqueInput) => ProxyPromise;
+  deleteManyProxies: (where?: ProxyWhereInput) => BatchPayloadPromise;
   createStudent: (data: StudentCreateInput) => StudentPromise;
   updateStudent: (args: {
     data: StudentUpdateInput;
@@ -489,6 +525,9 @@ export interface Subscription {
   practicalTest: (
     where?: PracticalTestSubscriptionWhereInput
   ) => PracticalTestSubscriptionPayloadSubscription;
+  proxy: (
+    where?: ProxySubscriptionWhereInput
+  ) => ProxySubscriptionPayloadSubscription;
   student: (
     where?: StudentSubscriptionWhereInput
   ) => StudentSubscriptionPayloadSubscription;
@@ -667,6 +706,24 @@ export type PracticalTestOrderByInput =
   | "isConfirmed_DESC"
   | "status_ASC"
   | "status_DESC";
+
+export type ProxyOrderByInput =
+  | "proxy_ASC"
+  | "proxy_DESC"
+  | "username_ASC"
+  | "username_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "ip_ASC"
+  | "ip_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "stopUseUntil_ASC"
+  | "stopUseUntil_DESC"
+  | "lastUsedBy_ASC"
+  | "lastUsedBy_DESC"
+  | "taken_ASC"
+  | "taken_DESC";
 
 export type StudentOrderByInput =
   | "id_ASC"
@@ -1644,6 +1701,110 @@ export interface PracticalTestWhereInput {
   AND?: PracticalTestWhereInput[] | PracticalTestWhereInput;
   OR?: PracticalTestWhereInput[] | PracticalTestWhereInput;
   NOT?: PracticalTestWhereInput[] | PracticalTestWhereInput;
+}
+
+export type ProxyWhereUniqueInput = AtLeastOne<{
+  ip: String;
+}>;
+
+export interface ProxyWhereInput {
+  proxy?: String;
+  proxy_not?: String;
+  proxy_in?: String[] | String;
+  proxy_not_in?: String[] | String;
+  proxy_lt?: String;
+  proxy_lte?: String;
+  proxy_gt?: String;
+  proxy_gte?: String;
+  proxy_contains?: String;
+  proxy_not_contains?: String;
+  proxy_starts_with?: String;
+  proxy_not_starts_with?: String;
+  proxy_ends_with?: String;
+  proxy_not_ends_with?: String;
+  username?: String;
+  username_not?: String;
+  username_in?: String[] | String;
+  username_not_in?: String[] | String;
+  username_lt?: String;
+  username_lte?: String;
+  username_gt?: String;
+  username_gte?: String;
+  username_contains?: String;
+  username_not_contains?: String;
+  username_starts_with?: String;
+  username_not_starts_with?: String;
+  username_ends_with?: String;
+  username_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
+  ip?: String;
+  ip_not?: String;
+  ip_in?: String[] | String;
+  ip_not_in?: String[] | String;
+  ip_lt?: String;
+  ip_lte?: String;
+  ip_gt?: String;
+  ip_gte?: String;
+  ip_contains?: String;
+  ip_not_contains?: String;
+  ip_starts_with?: String;
+  ip_not_starts_with?: String;
+  ip_ends_with?: String;
+  ip_not_ends_with?: String;
+  type?: String;
+  type_not?: String;
+  type_in?: String[] | String;
+  type_not_in?: String[] | String;
+  type_lt?: String;
+  type_lte?: String;
+  type_gt?: String;
+  type_gte?: String;
+  type_contains?: String;
+  type_not_contains?: String;
+  type_starts_with?: String;
+  type_not_starts_with?: String;
+  type_ends_with?: String;
+  type_not_ends_with?: String;
+  stopUseUntil?: DateTimeInput;
+  stopUseUntil_not?: DateTimeInput;
+  stopUseUntil_in?: DateTimeInput[] | DateTimeInput;
+  stopUseUntil_not_in?: DateTimeInput[] | DateTimeInput;
+  stopUseUntil_lt?: DateTimeInput;
+  stopUseUntil_lte?: DateTimeInput;
+  stopUseUntil_gt?: DateTimeInput;
+  stopUseUntil_gte?: DateTimeInput;
+  lastUsedBy?: String;
+  lastUsedBy_not?: String;
+  lastUsedBy_in?: String[] | String;
+  lastUsedBy_not_in?: String[] | String;
+  lastUsedBy_lt?: String;
+  lastUsedBy_lte?: String;
+  lastUsedBy_gt?: String;
+  lastUsedBy_gte?: String;
+  lastUsedBy_contains?: String;
+  lastUsedBy_not_contains?: String;
+  lastUsedBy_starts_with?: String;
+  lastUsedBy_not_starts_with?: String;
+  lastUsedBy_ends_with?: String;
+  lastUsedBy_not_ends_with?: String;
+  taken?: Boolean;
+  taken_not?: Boolean;
+  AND?: ProxyWhereInput[] | ProxyWhereInput;
+  OR?: ProxyWhereInput[] | ProxyWhereInput;
+  NOT?: ProxyWhereInput[] | ProxyWhereInput;
 }
 
 export type StudentWhereUniqueInput = AtLeastOne<{
@@ -3128,6 +3289,39 @@ export interface PracticalTestUpdateManyMutationInput {
   status?: PracticalTestStatus;
 }
 
+export interface ProxyCreateInput {
+  proxy: String;
+  username?: String;
+  password?: String;
+  ip: String;
+  type?: String;
+  stopUseUntil?: DateTimeInput;
+  lastUsedBy?: String;
+  taken?: Boolean;
+}
+
+export interface ProxyUpdateInput {
+  proxy?: String;
+  username?: String;
+  password?: String;
+  ip?: String;
+  type?: String;
+  stopUseUntil?: DateTimeInput;
+  lastUsedBy?: String;
+  taken?: Boolean;
+}
+
+export interface ProxyUpdateManyMutationInput {
+  proxy?: String;
+  username?: String;
+  password?: String;
+  ip?: String;
+  type?: String;
+  stopUseUntil?: DateTimeInput;
+  lastUsedBy?: String;
+  taken?: Boolean;
+}
+
 export interface StudentCreateInput {
   bookings?: BookingCreateManyWithoutStudentInput;
   zenId?: Int;
@@ -3345,6 +3539,17 @@ export interface PracticalTestSubscriptionWhereInput {
   NOT?:
     | PracticalTestSubscriptionWhereInput[]
     | PracticalTestSubscriptionWhereInput;
+}
+
+export interface ProxySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ProxyWhereInput;
+  AND?: ProxySubscriptionWhereInput[] | ProxySubscriptionWhereInput;
+  OR?: ProxySubscriptionWhereInput[] | ProxySubscriptionWhereInput;
+  NOT?: ProxySubscriptionWhereInput[] | ProxySubscriptionWhereInput;
 }
 
 export interface StudentSubscriptionWhereInput {
@@ -4394,6 +4599,95 @@ export interface AggregatePracticalTestSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface Proxy {
+  proxy: String;
+  username?: String;
+  password?: String;
+  ip: String;
+  type?: String;
+  stopUseUntil?: DateTimeOutput;
+  lastUsedBy?: String;
+  taken?: Boolean;
+}
+
+export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
+  proxy: () => Promise<String>;
+  username: () => Promise<String>;
+  password: () => Promise<String>;
+  ip: () => Promise<String>;
+  type: () => Promise<String>;
+  stopUseUntil: () => Promise<DateTimeOutput>;
+  lastUsedBy: () => Promise<String>;
+  taken: () => Promise<Boolean>;
+}
+
+export interface ProxySubscription
+  extends Promise<AsyncIterator<Proxy>>,
+    Fragmentable {
+  proxy: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  ip: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  stopUseUntil: () => Promise<AsyncIterator<DateTimeOutput>>;
+  lastUsedBy: () => Promise<AsyncIterator<String>>;
+  taken: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface ProxyConnection {
+  pageInfo: PageInfo;
+  edges: ProxyEdge[];
+}
+
+export interface ProxyConnectionPromise
+  extends Promise<ProxyConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProxyEdge>>() => T;
+  aggregate: <T = AggregateProxyPromise>() => T;
+}
+
+export interface ProxyConnectionSubscription
+  extends Promise<AsyncIterator<ProxyConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProxyEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProxySubscription>() => T;
+}
+
+export interface ProxyEdge {
+  node: Proxy;
+  cursor: String;
+}
+
+export interface ProxyEdgePromise extends Promise<ProxyEdge>, Fragmentable {
+  node: <T = ProxyPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProxyEdgeSubscription
+  extends Promise<AsyncIterator<ProxyEdge>>,
+    Fragmentable {
+  node: <T = ProxySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateProxy {
+  count: Int;
+}
+
+export interface AggregateProxyPromise
+  extends Promise<AggregateProxy>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProxySubscription
+  extends Promise<AsyncIterator<AggregateProxy>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface StudentConnection {
   pageInfo: PageInfo;
   edges: StudentEdge[];
@@ -5110,6 +5404,68 @@ export interface PracticalTestPreviousValuesSubscription
   status: () => Promise<AsyncIterator<PracticalTestStatus>>;
 }
 
+export interface ProxySubscriptionPayload {
+  mutation: MutationType;
+  node: Proxy;
+  updatedFields: String[];
+  previousValues: ProxyPreviousValues;
+}
+
+export interface ProxySubscriptionPayloadPromise
+  extends Promise<ProxySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProxyPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProxyPreviousValuesPromise>() => T;
+}
+
+export interface ProxySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProxySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProxySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProxyPreviousValuesSubscription>() => T;
+}
+
+export interface ProxyPreviousValues {
+  proxy: String;
+  username?: String;
+  password?: String;
+  ip: String;
+  type?: String;
+  stopUseUntil?: DateTimeOutput;
+  lastUsedBy?: String;
+  taken?: Boolean;
+}
+
+export interface ProxyPreviousValuesPromise
+  extends Promise<ProxyPreviousValues>,
+    Fragmentable {
+  proxy: () => Promise<String>;
+  username: () => Promise<String>;
+  password: () => Promise<String>;
+  ip: () => Promise<String>;
+  type: () => Promise<String>;
+  stopUseUntil: () => Promise<DateTimeOutput>;
+  lastUsedBy: () => Promise<String>;
+  taken: () => Promise<Boolean>;
+}
+
+export interface ProxyPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProxyPreviousValues>>,
+    Fragmentable {
+  proxy: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  ip: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  stopUseUntil: () => Promise<AsyncIterator<DateTimeOutput>>;
+  lastUsedBy: () => Promise<AsyncIterator<String>>;
+  taken: () => Promise<AsyncIterator<Boolean>>;
+}
+
 export interface StudentSubscriptionPayload {
   mutation: MutationType;
   node: Student;
@@ -5306,6 +5662,10 @@ export const models: Model[] = [
   },
   {
     name: "TestCentre",
+    embedded: false
+  },
+  {
+    name: "Proxy",
     embedded: false
   }
 ];
