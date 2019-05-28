@@ -156,6 +156,7 @@ type TestCentre {
 }
 
 type Proxy {
+  lastUsedAt: DateTime
   proxy: String!
   username: String
   password: String

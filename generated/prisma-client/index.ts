@@ -708,6 +708,8 @@ export type PracticalTestOrderByInput =
   | "status_DESC";
 
 export type ProxyOrderByInput =
+  | "lastUsedAt_ASC"
+  | "lastUsedAt_DESC"
   | "proxy_ASC"
   | "proxy_DESC"
   | "username_ASC"
@@ -1708,6 +1710,14 @@ export type ProxyWhereUniqueInput = AtLeastOne<{
 }>;
 
 export interface ProxyWhereInput {
+  lastUsedAt?: DateTimeInput;
+  lastUsedAt_not?: DateTimeInput;
+  lastUsedAt_in?: DateTimeInput[] | DateTimeInput;
+  lastUsedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  lastUsedAt_lt?: DateTimeInput;
+  lastUsedAt_lte?: DateTimeInput;
+  lastUsedAt_gt?: DateTimeInput;
+  lastUsedAt_gte?: DateTimeInput;
   proxy?: String;
   proxy_not?: String;
   proxy_in?: String[] | String;
@@ -3290,6 +3300,7 @@ export interface PracticalTestUpdateManyMutationInput {
 }
 
 export interface ProxyCreateInput {
+  lastUsedAt?: DateTimeInput;
   proxy: String;
   username?: String;
   password?: String;
@@ -3301,6 +3312,7 @@ export interface ProxyCreateInput {
 }
 
 export interface ProxyUpdateInput {
+  lastUsedAt?: DateTimeInput;
   proxy?: String;
   username?: String;
   password?: String;
@@ -3312,6 +3324,7 @@ export interface ProxyUpdateInput {
 }
 
 export interface ProxyUpdateManyMutationInput {
+  lastUsedAt?: DateTimeInput;
   proxy?: String;
   username?: String;
   password?: String;
@@ -4600,6 +4613,7 @@ export interface AggregatePracticalTestSubscription
 }
 
 export interface Proxy {
+  lastUsedAt?: DateTimeOutput;
   proxy: String;
   username?: String;
   password?: String;
@@ -4611,6 +4625,7 @@ export interface Proxy {
 }
 
 export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
+  lastUsedAt: () => Promise<DateTimeOutput>;
   proxy: () => Promise<String>;
   username: () => Promise<String>;
   password: () => Promise<String>;
@@ -4624,6 +4639,7 @@ export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
 export interface ProxySubscription
   extends Promise<AsyncIterator<Proxy>>,
     Fragmentable {
+  lastUsedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   proxy: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
@@ -5430,6 +5446,7 @@ export interface ProxySubscriptionPayloadSubscription
 }
 
 export interface ProxyPreviousValues {
+  lastUsedAt?: DateTimeOutput;
   proxy: String;
   username?: String;
   password?: String;
@@ -5443,6 +5460,7 @@ export interface ProxyPreviousValues {
 export interface ProxyPreviousValuesPromise
   extends Promise<ProxyPreviousValues>,
     Fragmentable {
+  lastUsedAt: () => Promise<DateTimeOutput>;
   proxy: () => Promise<String>;
   username: () => Promise<String>;
   password: () => Promise<String>;
@@ -5456,6 +5474,7 @@ export interface ProxyPreviousValuesPromise
 export interface ProxyPreviousValuesSubscription
   extends Promise<AsyncIterator<ProxyPreviousValues>>,
     Fragmentable {
+  lastUsedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   proxy: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;

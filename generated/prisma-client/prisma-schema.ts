@@ -3074,6 +3074,7 @@ input PracticalTestWhereUniqueInput {
 }
 
 type Proxy {
+  lastUsedAt: DateTime
   proxy: String!
   username: String
   password: String
@@ -3091,6 +3092,7 @@ type ProxyConnection {
 }
 
 input ProxyCreateInput {
+  lastUsedAt: DateTime
   proxy: String!
   username: String
   password: String
@@ -3107,6 +3109,8 @@ type ProxyEdge {
 }
 
 enum ProxyOrderByInput {
+  lastUsedAt_ASC
+  lastUsedAt_DESC
   proxy_ASC
   proxy_DESC
   username_ASC
@@ -3126,6 +3130,7 @@ enum ProxyOrderByInput {
 }
 
 type ProxyPreviousValues {
+  lastUsedAt: DateTime
   proxy: String!
   username: String
   password: String
@@ -3155,6 +3160,7 @@ input ProxySubscriptionWhereInput {
 }
 
 input ProxyUpdateInput {
+  lastUsedAt: DateTime
   proxy: String
   username: String
   password: String
@@ -3166,6 +3172,7 @@ input ProxyUpdateInput {
 }
 
 input ProxyUpdateManyMutationInput {
+  lastUsedAt: DateTime
   proxy: String
   username: String
   password: String
@@ -3177,6 +3184,14 @@ input ProxyUpdateManyMutationInput {
 }
 
 input ProxyWhereInput {
+  lastUsedAt: DateTime
+  lastUsedAt_not: DateTime
+  lastUsedAt_in: [DateTime!]
+  lastUsedAt_not_in: [DateTime!]
+  lastUsedAt_lt: DateTime
+  lastUsedAt_lte: DateTime
+  lastUsedAt_gt: DateTime
+  lastUsedAt_gte: DateTime
   proxy: String
   proxy_not: String
   proxy_in: [String!]
