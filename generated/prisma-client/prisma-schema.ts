@@ -3083,6 +3083,7 @@ type Proxy {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean
+  blackListed: Boolean
 }
 
 type ProxyConnection {
@@ -3101,6 +3102,7 @@ input ProxyCreateInput {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean
+  blackListed: Boolean
 }
 
 type ProxyEdge {
@@ -3127,6 +3129,8 @@ enum ProxyOrderByInput {
   lastUsedBy_DESC
   taken_ASC
   taken_DESC
+  blackListed_ASC
+  blackListed_DESC
 }
 
 type ProxyPreviousValues {
@@ -3139,6 +3143,7 @@ type ProxyPreviousValues {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean
+  blackListed: Boolean
 }
 
 type ProxySubscriptionPayload {
@@ -3169,6 +3174,7 @@ input ProxyUpdateInput {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean
+  blackListed: Boolean
 }
 
 input ProxyUpdateManyMutationInput {
@@ -3181,6 +3187,7 @@ input ProxyUpdateManyMutationInput {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean
+  blackListed: Boolean
 }
 
 input ProxyWhereInput {
@@ -3286,6 +3293,8 @@ input ProxyWhereInput {
   lastUsedBy_not_ends_with: String
   taken: Boolean
   taken_not: Boolean
+  blackListed: Boolean
+  blackListed_not: Boolean
   AND: [ProxyWhereInput!]
   OR: [ProxyWhereInput!]
   NOT: [ProxyWhereInput!]

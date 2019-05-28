@@ -165,4 +165,5 @@ type Proxy {
   stopUseUntil: DateTime
   lastUsedBy: String
   taken: Boolean @default(value:"false")
+  blackListed: Boolean @default(value:"false")
 }

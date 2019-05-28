@@ -725,7 +725,9 @@ export type ProxyOrderByInput =
   | "lastUsedBy_ASC"
   | "lastUsedBy_DESC"
   | "taken_ASC"
-  | "taken_DESC";
+  | "taken_DESC"
+  | "blackListed_ASC"
+  | "blackListed_DESC";
 
 export type StudentOrderByInput =
   | "id_ASC"
@@ -1812,6 +1814,8 @@ export interface ProxyWhereInput {
   lastUsedBy_not_ends_with?: String;
   taken?: Boolean;
   taken_not?: Boolean;
+  blackListed?: Boolean;
+  blackListed_not?: Boolean;
   AND?: ProxyWhereInput[] | ProxyWhereInput;
   OR?: ProxyWhereInput[] | ProxyWhereInput;
   NOT?: ProxyWhereInput[] | ProxyWhereInput;
@@ -3309,6 +3313,7 @@ export interface ProxyCreateInput {
   stopUseUntil?: DateTimeInput;
   lastUsedBy?: String;
   taken?: Boolean;
+  blackListed?: Boolean;
 }
 
 export interface ProxyUpdateInput {
@@ -3321,6 +3326,7 @@ export interface ProxyUpdateInput {
   stopUseUntil?: DateTimeInput;
   lastUsedBy?: String;
   taken?: Boolean;
+  blackListed?: Boolean;
 }
 
 export interface ProxyUpdateManyMutationInput {
@@ -3333,6 +3339,7 @@ export interface ProxyUpdateManyMutationInput {
   stopUseUntil?: DateTimeInput;
   lastUsedBy?: String;
   taken?: Boolean;
+  blackListed?: Boolean;
 }
 
 export interface StudentCreateInput {
@@ -4622,6 +4629,7 @@ export interface Proxy {
   stopUseUntil?: DateTimeOutput;
   lastUsedBy?: String;
   taken?: Boolean;
+  blackListed?: Boolean;
 }
 
 export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
@@ -4634,6 +4642,7 @@ export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
   stopUseUntil: () => Promise<DateTimeOutput>;
   lastUsedBy: () => Promise<String>;
   taken: () => Promise<Boolean>;
+  blackListed: () => Promise<Boolean>;
 }
 
 export interface ProxySubscription
@@ -4648,6 +4657,7 @@ export interface ProxySubscription
   stopUseUntil: () => Promise<AsyncIterator<DateTimeOutput>>;
   lastUsedBy: () => Promise<AsyncIterator<String>>;
   taken: () => Promise<AsyncIterator<Boolean>>;
+  blackListed: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ProxyConnection {
@@ -5455,6 +5465,7 @@ export interface ProxyPreviousValues {
   stopUseUntil?: DateTimeOutput;
   lastUsedBy?: String;
   taken?: Boolean;
+  blackListed?: Boolean;
 }
 
 export interface ProxyPreviousValuesPromise
@@ -5469,6 +5480,7 @@ export interface ProxyPreviousValuesPromise
   stopUseUntil: () => Promise<DateTimeOutput>;
   lastUsedBy: () => Promise<String>;
   taken: () => Promise<Boolean>;
+  blackListed: () => Promise<Boolean>;
 }
 
 export interface ProxyPreviousValuesSubscription
@@ -5483,6 +5495,7 @@ export interface ProxyPreviousValuesSubscription
   stopUseUntil: () => Promise<AsyncIterator<DateTimeOutput>>;
   lastUsedBy: () => Promise<AsyncIterator<String>>;
   taken: () => Promise<AsyncIterator<Boolean>>;
+  blackListed: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface StudentSubscriptionPayload {
