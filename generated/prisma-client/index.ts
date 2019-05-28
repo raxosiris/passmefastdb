@@ -727,7 +727,9 @@ export type ProxyOrderByInput =
   | "taken_ASC"
   | "taken_DESC"
   | "blackListed_ASC"
-  | "blackListed_DESC";
+  | "blackListed_DESC"
+  | "blockCount_ASC"
+  | "blockCount_DESC";
 
 export type StudentOrderByInput =
   | "id_ASC"
@@ -1816,6 +1818,14 @@ export interface ProxyWhereInput {
   taken_not?: Boolean;
   blackListed?: Boolean;
   blackListed_not?: Boolean;
+  blockCount?: Int;
+  blockCount_not?: Int;
+  blockCount_in?: Int[] | Int;
+  blockCount_not_in?: Int[] | Int;
+  blockCount_lt?: Int;
+  blockCount_lte?: Int;
+  blockCount_gt?: Int;
+  blockCount_gte?: Int;
   AND?: ProxyWhereInput[] | ProxyWhereInput;
   OR?: ProxyWhereInput[] | ProxyWhereInput;
   NOT?: ProxyWhereInput[] | ProxyWhereInput;
@@ -3314,6 +3324,7 @@ export interface ProxyCreateInput {
   lastUsedBy?: String;
   taken?: Boolean;
   blackListed?: Boolean;
+  blockCount?: Int;
 }
 
 export interface ProxyUpdateInput {
@@ -3327,6 +3338,7 @@ export interface ProxyUpdateInput {
   lastUsedBy?: String;
   taken?: Boolean;
   blackListed?: Boolean;
+  blockCount?: Int;
 }
 
 export interface ProxyUpdateManyMutationInput {
@@ -3340,6 +3352,7 @@ export interface ProxyUpdateManyMutationInput {
   lastUsedBy?: String;
   taken?: Boolean;
   blackListed?: Boolean;
+  blockCount?: Int;
 }
 
 export interface StudentCreateInput {
@@ -4630,6 +4643,7 @@ export interface Proxy {
   lastUsedBy?: String;
   taken?: Boolean;
   blackListed?: Boolean;
+  blockCount?: Int;
 }
 
 export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
@@ -4643,6 +4657,7 @@ export interface ProxyPromise extends Promise<Proxy>, Fragmentable {
   lastUsedBy: () => Promise<String>;
   taken: () => Promise<Boolean>;
   blackListed: () => Promise<Boolean>;
+  blockCount: () => Promise<Int>;
 }
 
 export interface ProxySubscription
@@ -4658,6 +4673,7 @@ export interface ProxySubscription
   lastUsedBy: () => Promise<AsyncIterator<String>>;
   taken: () => Promise<AsyncIterator<Boolean>>;
   blackListed: () => Promise<AsyncIterator<Boolean>>;
+  blockCount: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface ProxyConnection {
@@ -5466,6 +5482,7 @@ export interface ProxyPreviousValues {
   lastUsedBy?: String;
   taken?: Boolean;
   blackListed?: Boolean;
+  blockCount?: Int;
 }
 
 export interface ProxyPreviousValuesPromise
@@ -5481,6 +5498,7 @@ export interface ProxyPreviousValuesPromise
   lastUsedBy: () => Promise<String>;
   taken: () => Promise<Boolean>;
   blackListed: () => Promise<Boolean>;
+  blockCount: () => Promise<Int>;
 }
 
 export interface ProxyPreviousValuesSubscription
@@ -5496,6 +5514,7 @@ export interface ProxyPreviousValuesSubscription
   lastUsedBy: () => Promise<AsyncIterator<String>>;
   taken: () => Promise<AsyncIterator<Boolean>>;
   blackListed: () => Promise<AsyncIterator<Boolean>>;
+  blockCount: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface StudentSubscriptionPayload {

@@ -166,4 +166,5 @@ type Proxy {
   lastUsedBy: String
   taken: Boolean @default(value:"false")
   blackListed: Boolean @default(value:"false")
+  blockCount: Int @defalt(value:0)
 }

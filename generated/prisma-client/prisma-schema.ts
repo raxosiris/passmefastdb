@@ -3084,6 +3084,7 @@ type Proxy {
   lastUsedBy: String
   taken: Boolean
   blackListed: Boolean
+  blockCount: Int
 }
 
 type ProxyConnection {
@@ -3103,6 +3104,7 @@ input ProxyCreateInput {
   lastUsedBy: String
   taken: Boolean
   blackListed: Boolean
+  blockCount: Int
 }
 
 type ProxyEdge {
@@ -3131,6 +3133,8 @@ enum ProxyOrderByInput {
   taken_DESC
   blackListed_ASC
   blackListed_DESC
+  blockCount_ASC
+  blockCount_DESC
 }
 
 type ProxyPreviousValues {
@@ -3144,6 +3148,7 @@ type ProxyPreviousValues {
   lastUsedBy: String
   taken: Boolean
   blackListed: Boolean
+  blockCount: Int
 }
 
 type ProxySubscriptionPayload {
@@ -3175,6 +3180,7 @@ input ProxyUpdateInput {
   lastUsedBy: String
   taken: Boolean
   blackListed: Boolean
+  blockCount: Int
 }
 
 input ProxyUpdateManyMutationInput {
@@ -3188,6 +3194,7 @@ input ProxyUpdateManyMutationInput {
   lastUsedBy: String
   taken: Boolean
   blackListed: Boolean
+  blockCount: Int
 }
 
 input ProxyWhereInput {
@@ -3295,6 +3302,14 @@ input ProxyWhereInput {
   taken_not: Boolean
   blackListed: Boolean
   blackListed_not: Boolean
+  blockCount: Int
+  blockCount_not: Int
+  blockCount_in: [Int!]
+  blockCount_not_in: [Int!]
+  blockCount_lt: Int
+  blockCount_lte: Int
+  blockCount_gt: Int
+  blockCount_gte: Int
   AND: [ProxyWhereInput!]
   OR: [ProxyWhereInput!]
   NOT: [ProxyWhereInput!]
