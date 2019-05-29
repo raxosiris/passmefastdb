@@ -245,6 +245,10 @@ type AggregateTestCentre {
   count: Int!
 }
 
+type AggregateUnavailabilityWindow {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -2559,6 +2563,9 @@ type Mutation {
   upsertTestCentre(where: TestCentreWhereUniqueInput!, create: TestCentreCreateInput!, update: TestCentreUpdateInput!): TestCentre!
   deleteTestCentre(where: TestCentreWhereUniqueInput!): TestCentre
   deleteManyTestCentres(where: TestCentreWhereInput): BatchPayload!
+  createUnavailabilityWindow(data: UnavailabilityWindowCreateInput!): UnavailabilityWindow!
+  updateManyUnavailabilityWindows(data: UnavailabilityWindowUpdateManyMutationInput!, where: UnavailabilityWindowWhereInput): BatchPayload!
+  deleteManyUnavailabilityWindows(where: UnavailabilityWindowWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -3356,6 +3363,8 @@ type Query {
   testCentre(where: TestCentreWhereUniqueInput!): TestCentre
   testCentres(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TestCentre]!
   testCentresConnection(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestCentreConnection!
+  unavailabilityWindows(where: UnavailabilityWindowWhereInput, orderBy: UnavailabilityWindowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UnavailabilityWindow]!
+  unavailabilityWindowsConnection(where: UnavailabilityWindowWhereInput, orderBy: UnavailabilityWindowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnavailabilityWindowConnection!
   node(id: ID!): Node
 }
 
@@ -3565,6 +3574,7 @@ type Subscription {
   proxy(where: ProxySubscriptionWhereInput): ProxySubscriptionPayload
   student(where: StudentSubscriptionWhereInput): StudentSubscriptionPayload
   testCentre(where: TestCentreSubscriptionWhereInput): TestCentreSubscriptionPayload
+  unavailabilityWindow(where: UnavailabilityWindowSubscriptionWhereInput): UnavailabilityWindowSubscriptionPayload
 }
 
 type TestCentre {
@@ -3700,5 +3710,127 @@ input TestCentreWhereInput {
 
 input TestCentreWhereUniqueInput {
   centreId: Int
+}
+
+type UnavailabilityWindow {
+  startTime: DateTime!
+  endTime: DateTime!
+  reason: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UnavailabilityWindowConnection {
+  pageInfo: PageInfo!
+  edges: [UnavailabilityWindowEdge]!
+  aggregate: AggregateUnavailabilityWindow!
+}
+
+input UnavailabilityWindowCreateInput {
+  startTime: DateTime!
+  endTime: DateTime!
+  reason: String
+}
+
+type UnavailabilityWindowEdge {
+  node: UnavailabilityWindow!
+  cursor: String!
+}
+
+enum UnavailabilityWindowOrderByInput {
+  startTime_ASC
+  startTime_DESC
+  endTime_ASC
+  endTime_DESC
+  reason_ASC
+  reason_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UnavailabilityWindowPreviousValues {
+  startTime: DateTime!
+  endTime: DateTime!
+  reason: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UnavailabilityWindowSubscriptionPayload {
+  mutation: MutationType!
+  node: UnavailabilityWindow
+  updatedFields: [String!]
+  previousValues: UnavailabilityWindowPreviousValues
+}
+
+input UnavailabilityWindowSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UnavailabilityWindowWhereInput
+  AND: [UnavailabilityWindowSubscriptionWhereInput!]
+  OR: [UnavailabilityWindowSubscriptionWhereInput!]
+  NOT: [UnavailabilityWindowSubscriptionWhereInput!]
+}
+
+input UnavailabilityWindowUpdateManyMutationInput {
+  startTime: DateTime
+  endTime: DateTime
+  reason: String
+}
+
+input UnavailabilityWindowWhereInput {
+  startTime: DateTime
+  startTime_not: DateTime
+  startTime_in: [DateTime!]
+  startTime_not_in: [DateTime!]
+  startTime_lt: DateTime
+  startTime_lte: DateTime
+  startTime_gt: DateTime
+  startTime_gte: DateTime
+  endTime: DateTime
+  endTime_not: DateTime
+  endTime_in: [DateTime!]
+  endTime_not_in: [DateTime!]
+  endTime_lt: DateTime
+  endTime_lte: DateTime
+  endTime_gt: DateTime
+  endTime_gte: DateTime
+  reason: String
+  reason_not: String
+  reason_in: [String!]
+  reason_not_in: [String!]
+  reason_lt: String
+  reason_lte: String
+  reason_gt: String
+  reason_gte: String
+  reason_contains: String
+  reason_not_contains: String
+  reason_starts_with: String
+  reason_not_starts_with: String
+  reason_ends_with: String
+  reason_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [UnavailabilityWindowWhereInput!]
+  OR: [UnavailabilityWindowWhereInput!]
+  NOT: [UnavailabilityWindowWhereInput!]
 }
 `

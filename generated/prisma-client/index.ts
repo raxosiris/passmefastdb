@@ -26,6 +26,9 @@ export interface Exists {
   proxy: (where?: ProxyWhereInput) => Promise<boolean>;
   student: (where?: StudentWhereInput) => Promise<boolean>;
   testCentre: (where?: TestCentreWhereInput) => Promise<boolean>;
+  unavailabilityWindow: (
+    where?: UnavailabilityWindowWhereInput
+  ) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -277,6 +280,24 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => TestCentreConnectionPromise;
+  unavailabilityWindows: (args?: {
+    where?: UnavailabilityWindowWhereInput;
+    orderBy?: UnavailabilityWindowOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<UnavailabilityWindow>;
+  unavailabilityWindowsConnection: (args?: {
+    where?: UnavailabilityWindowWhereInput;
+    orderBy?: UnavailabilityWindowOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => UnavailabilityWindowConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -489,6 +510,16 @@ export interface Prisma {
   }) => TestCentrePromise;
   deleteTestCentre: (where: TestCentreWhereUniqueInput) => TestCentrePromise;
   deleteManyTestCentres: (where?: TestCentreWhereInput) => BatchPayloadPromise;
+  createUnavailabilityWindow: (
+    data: UnavailabilityWindowCreateInput
+  ) => UnavailabilityWindowPromise;
+  updateManyUnavailabilityWindows: (args: {
+    data: UnavailabilityWindowUpdateManyMutationInput;
+    where?: UnavailabilityWindowWhereInput;
+  }) => BatchPayloadPromise;
+  deleteManyUnavailabilityWindows: (
+    where?: UnavailabilityWindowWhereInput
+  ) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -534,6 +565,9 @@ export interface Subscription {
   testCentre: (
     where?: TestCentreSubscriptionWhereInput
   ) => TestCentreSubscriptionPayloadSubscription;
+  unavailabilityWindow: (
+    where?: UnavailabilityWindowSubscriptionWhereInput
+  ) => UnavailabilityWindowSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -752,6 +786,18 @@ export type TestCentreOrderByInput =
   | "postcode_DESC"
   | "city_ASC"
   | "city_DESC";
+
+export type UnavailabilityWindowOrderByInput =
+  | "startTime_ASC"
+  | "startTime_DESC"
+  | "endTime_ASC"
+  | "endTime_DESC"
+  | "reason_ASC"
+  | "reason_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -1894,6 +1940,58 @@ export interface TestCentreWhereInput {
   AND?: TestCentreWhereInput[] | TestCentreWhereInput;
   OR?: TestCentreWhereInput[] | TestCentreWhereInput;
   NOT?: TestCentreWhereInput[] | TestCentreWhereInput;
+}
+
+export interface UnavailabilityWindowWhereInput {
+  startTime?: DateTimeInput;
+  startTime_not?: DateTimeInput;
+  startTime_in?: DateTimeInput[] | DateTimeInput;
+  startTime_not_in?: DateTimeInput[] | DateTimeInput;
+  startTime_lt?: DateTimeInput;
+  startTime_lte?: DateTimeInput;
+  startTime_gt?: DateTimeInput;
+  startTime_gte?: DateTimeInput;
+  endTime?: DateTimeInput;
+  endTime_not?: DateTimeInput;
+  endTime_in?: DateTimeInput[] | DateTimeInput;
+  endTime_not_in?: DateTimeInput[] | DateTimeInput;
+  endTime_lt?: DateTimeInput;
+  endTime_lte?: DateTimeInput;
+  endTime_gt?: DateTimeInput;
+  endTime_gte?: DateTimeInput;
+  reason?: String;
+  reason_not?: String;
+  reason_in?: String[] | String;
+  reason_not_in?: String[] | String;
+  reason_lt?: String;
+  reason_lte?: String;
+  reason_gt?: String;
+  reason_gte?: String;
+  reason_contains?: String;
+  reason_not_contains?: String;
+  reason_starts_with?: String;
+  reason_not_starts_with?: String;
+  reason_ends_with?: String;
+  reason_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: UnavailabilityWindowWhereInput[] | UnavailabilityWindowWhereInput;
+  OR?: UnavailabilityWindowWhereInput[] | UnavailabilityWindowWhereInput;
+  NOT?: UnavailabilityWindowWhereInput[] | UnavailabilityWindowWhereInput;
 }
 
 export interface AgentCreateInput {
@@ -3457,6 +3555,18 @@ export interface TestCentreUpdateManyMutationInput {
   city?: String;
 }
 
+export interface UnavailabilityWindowCreateInput {
+  startTime: DateTimeInput;
+  endTime: DateTimeInput;
+  reason?: String;
+}
+
+export interface UnavailabilityWindowUpdateManyMutationInput {
+  startTime?: DateTimeInput;
+  endTime?: DateTimeInput;
+  reason?: String;
+}
+
 export interface AgentSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
@@ -3605,6 +3715,23 @@ export interface TestCentreSubscriptionWhereInput {
   AND?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
   OR?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
   NOT?: TestCentreSubscriptionWhereInput[] | TestCentreSubscriptionWhereInput;
+}
+
+export interface UnavailabilityWindowSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UnavailabilityWindowWhereInput;
+  AND?:
+    | UnavailabilityWindowSubscriptionWhereInput[]
+    | UnavailabilityWindowSubscriptionWhereInput;
+  OR?:
+    | UnavailabilityWindowSubscriptionWhereInput[]
+    | UnavailabilityWindowSubscriptionWhereInput;
+  NOT?:
+    | UnavailabilityWindowSubscriptionWhereInput[]
+    | UnavailabilityWindowSubscriptionWhereInput;
 }
 
 export interface NodeNode {
@@ -4863,6 +4990,92 @@ export interface AggregateTestCentreSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface UnavailabilityWindow {
+  startTime: DateTimeOutput;
+  endTime: DateTimeOutput;
+  reason?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UnavailabilityWindowPromise
+  extends Promise<UnavailabilityWindow>,
+    Fragmentable {
+  startTime: () => Promise<DateTimeOutput>;
+  endTime: () => Promise<DateTimeOutput>;
+  reason: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UnavailabilityWindowSubscription
+  extends Promise<AsyncIterator<UnavailabilityWindow>>,
+    Fragmentable {
+  startTime: () => Promise<AsyncIterator<DateTimeOutput>>;
+  endTime: () => Promise<AsyncIterator<DateTimeOutput>>;
+  reason: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UnavailabilityWindowConnection {
+  pageInfo: PageInfo;
+  edges: UnavailabilityWindowEdge[];
+}
+
+export interface UnavailabilityWindowConnectionPromise
+  extends Promise<UnavailabilityWindowConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UnavailabilityWindowEdge>>() => T;
+  aggregate: <T = AggregateUnavailabilityWindowPromise>() => T;
+}
+
+export interface UnavailabilityWindowConnectionSubscription
+  extends Promise<AsyncIterator<UnavailabilityWindowConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<UnavailabilityWindowEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateUnavailabilityWindowSubscription>() => T;
+}
+
+export interface UnavailabilityWindowEdge {
+  node: UnavailabilityWindow;
+  cursor: String;
+}
+
+export interface UnavailabilityWindowEdgePromise
+  extends Promise<UnavailabilityWindowEdge>,
+    Fragmentable {
+  node: <T = UnavailabilityWindowPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UnavailabilityWindowEdgeSubscription
+  extends Promise<AsyncIterator<UnavailabilityWindowEdge>>,
+    Fragmentable {
+  node: <T = UnavailabilityWindowSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUnavailabilityWindow {
+  count: Int;
+}
+
+export interface AggregateUnavailabilityWindowPromise
+  extends Promise<AggregateUnavailabilityWindow>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUnavailabilityWindowSubscription
+  extends Promise<AsyncIterator<AggregateUnavailabilityWindow>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -5620,6 +5833,59 @@ export interface TestCentrePreviousValuesSubscription
   city: () => Promise<AsyncIterator<String>>;
 }
 
+export interface UnavailabilityWindowSubscriptionPayload {
+  mutation: MutationType;
+  node: UnavailabilityWindow;
+  updatedFields: String[];
+  previousValues: UnavailabilityWindowPreviousValues;
+}
+
+export interface UnavailabilityWindowSubscriptionPayloadPromise
+  extends Promise<UnavailabilityWindowSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UnavailabilityWindowPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UnavailabilityWindowPreviousValuesPromise>() => T;
+}
+
+export interface UnavailabilityWindowSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UnavailabilityWindowSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UnavailabilityWindowSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UnavailabilityWindowPreviousValuesSubscription>() => T;
+}
+
+export interface UnavailabilityWindowPreviousValues {
+  startTime: DateTimeOutput;
+  endTime: DateTimeOutput;
+  reason?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UnavailabilityWindowPreviousValuesPromise
+  extends Promise<UnavailabilityWindowPreviousValues>,
+    Fragmentable {
+  startTime: () => Promise<DateTimeOutput>;
+  endTime: () => Promise<DateTimeOutput>;
+  reason: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UnavailabilityWindowPreviousValuesSubscription
+  extends Promise<AsyncIterator<UnavailabilityWindowPreviousValues>>,
+    Fragmentable {
+  startTime: () => Promise<AsyncIterator<DateTimeOutput>>;
+  endTime: () => Promise<AsyncIterator<DateTimeOutput>>;
+  reason: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -5717,6 +5983,10 @@ export const models: Model[] = [
   },
   {
     name: "Proxy",
+    embedded: false
+  },
+  {
+    name: "UnavailabilityWindow",
     embedded: false
   }
 ];

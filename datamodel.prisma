@@ -166,5 +166,13 @@ type Proxy {
   lastUsedBy: String
   taken: Boolean @default(value:"false")
   blackListed: Boolean @default(value:"false")
-  blockCount: Int @defalt(value:0)
+  blockCount: Int @defalt(value:"0")
+}
+
+type UnavailabilityWindow {
+  startTime: DateTime!
+  endTime: DateTime!
+  reason: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
