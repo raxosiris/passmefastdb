@@ -280,6 +280,9 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => TestCentreConnectionPromise;
+  unavailabilityWindow: (
+    where: UnavailabilityWindowWhereUniqueInput
+  ) => UnavailabilityWindowPromise;
   unavailabilityWindows: (args?: {
     where?: UnavailabilityWindowWhereInput;
     orderBy?: UnavailabilityWindowOrderByInput;
@@ -513,10 +516,22 @@ export interface Prisma {
   createUnavailabilityWindow: (
     data: UnavailabilityWindowCreateInput
   ) => UnavailabilityWindowPromise;
+  updateUnavailabilityWindow: (args: {
+    data: UnavailabilityWindowUpdateInput;
+    where: UnavailabilityWindowWhereUniqueInput;
+  }) => UnavailabilityWindowPromise;
   updateManyUnavailabilityWindows: (args: {
     data: UnavailabilityWindowUpdateManyMutationInput;
     where?: UnavailabilityWindowWhereInput;
   }) => BatchPayloadPromise;
+  upsertUnavailabilityWindow: (args: {
+    where: UnavailabilityWindowWhereUniqueInput;
+    create: UnavailabilityWindowCreateInput;
+    update: UnavailabilityWindowUpdateInput;
+  }) => UnavailabilityWindowPromise;
+  deleteUnavailabilityWindow: (
+    where: UnavailabilityWindowWhereUniqueInput
+  ) => UnavailabilityWindowPromise;
   deleteManyUnavailabilityWindows: (
     where?: UnavailabilityWindowWhereInput
   ) => BatchPayloadPromise;
@@ -787,7 +802,11 @@ export type TestCentreOrderByInput =
   | "city_ASC"
   | "city_DESC";
 
+export type UNAVAILABLETYPE = "DVSA";
+
 export type UnavailabilityWindowOrderByInput =
+  | "type_ASC"
+  | "type_DESC"
   | "startTime_ASC"
   | "startTime_DESC"
   | "endTime_ASC"
@@ -1942,7 +1961,15 @@ export interface TestCentreWhereInput {
   NOT?: TestCentreWhereInput[] | TestCentreWhereInput;
 }
 
+export type UnavailabilityWindowWhereUniqueInput = AtLeastOne<{
+  type: UNAVAILABLETYPE;
+}>;
+
 export interface UnavailabilityWindowWhereInput {
+  type?: UNAVAILABLETYPE;
+  type_not?: UNAVAILABLETYPE;
+  type_in?: UNAVAILABLETYPE[] | UNAVAILABLETYPE;
+  type_not_in?: UNAVAILABLETYPE[] | UNAVAILABLETYPE;
   startTime?: DateTimeInput;
   startTime_not?: DateTimeInput;
   startTime_in?: DateTimeInput[] | DateTimeInput;
@@ -3556,12 +3583,21 @@ export interface TestCentreUpdateManyMutationInput {
 }
 
 export interface UnavailabilityWindowCreateInput {
+  type?: UNAVAILABLETYPE;
   startTime: DateTimeInput;
   endTime: DateTimeInput;
   reason?: String;
 }
 
+export interface UnavailabilityWindowUpdateInput {
+  type?: UNAVAILABLETYPE;
+  startTime?: DateTimeInput;
+  endTime?: DateTimeInput;
+  reason?: String;
+}
+
 export interface UnavailabilityWindowUpdateManyMutationInput {
+  type?: UNAVAILABLETYPE;
   startTime?: DateTimeInput;
   endTime?: DateTimeInput;
   reason?: String;
@@ -4991,6 +5027,7 @@ export interface AggregateTestCentreSubscription
 }
 
 export interface UnavailabilityWindow {
+  type?: UNAVAILABLETYPE;
   startTime: DateTimeOutput;
   endTime: DateTimeOutput;
   reason?: String;
@@ -5001,6 +5038,7 @@ export interface UnavailabilityWindow {
 export interface UnavailabilityWindowPromise
   extends Promise<UnavailabilityWindow>,
     Fragmentable {
+  type: () => Promise<UNAVAILABLETYPE>;
   startTime: () => Promise<DateTimeOutput>;
   endTime: () => Promise<DateTimeOutput>;
   reason: () => Promise<String>;
@@ -5011,6 +5049,7 @@ export interface UnavailabilityWindowPromise
 export interface UnavailabilityWindowSubscription
   extends Promise<AsyncIterator<UnavailabilityWindow>>,
     Fragmentable {
+  type: () => Promise<AsyncIterator<UNAVAILABLETYPE>>;
   startTime: () => Promise<AsyncIterator<DateTimeOutput>>;
   endTime: () => Promise<AsyncIterator<DateTimeOutput>>;
   reason: () => Promise<AsyncIterator<String>>;
@@ -5859,6 +5898,7 @@ export interface UnavailabilityWindowSubscriptionPayloadSubscription
 }
 
 export interface UnavailabilityWindowPreviousValues {
+  type?: UNAVAILABLETYPE;
   startTime: DateTimeOutput;
   endTime: DateTimeOutput;
   reason?: String;
@@ -5869,6 +5909,7 @@ export interface UnavailabilityWindowPreviousValues {
 export interface UnavailabilityWindowPreviousValuesPromise
   extends Promise<UnavailabilityWindowPreviousValues>,
     Fragmentable {
+  type: () => Promise<UNAVAILABLETYPE>;
   startTime: () => Promise<DateTimeOutput>;
   endTime: () => Promise<DateTimeOutput>;
   reason: () => Promise<String>;
@@ -5879,6 +5920,7 @@ export interface UnavailabilityWindowPreviousValuesPromise
 export interface UnavailabilityWindowPreviousValuesSubscription
   extends Promise<AsyncIterator<UnavailabilityWindowPreviousValues>>,
     Fragmentable {
+  type: () => Promise<AsyncIterator<UNAVAILABLETYPE>>;
   startTime: () => Promise<AsyncIterator<DateTimeOutput>>;
   endTime: () => Promise<AsyncIterator<DateTimeOutput>>;
   reason: () => Promise<AsyncIterator<String>>;
@@ -5983,6 +6025,10 @@ export const models: Model[] = [
   },
   {
     name: "Proxy",
+    embedded: false
+  },
+  {
+    name: "UNAVAILABLETYPE",
     embedded: false
   },
   {

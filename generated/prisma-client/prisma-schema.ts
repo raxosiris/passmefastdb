@@ -2564,7 +2564,10 @@ type Mutation {
   deleteTestCentre(where: TestCentreWhereUniqueInput!): TestCentre
   deleteManyTestCentres(where: TestCentreWhereInput): BatchPayload!
   createUnavailabilityWindow(data: UnavailabilityWindowCreateInput!): UnavailabilityWindow!
+  updateUnavailabilityWindow(data: UnavailabilityWindowUpdateInput!, where: UnavailabilityWindowWhereUniqueInput!): UnavailabilityWindow
   updateManyUnavailabilityWindows(data: UnavailabilityWindowUpdateManyMutationInput!, where: UnavailabilityWindowWhereInput): BatchPayload!
+  upsertUnavailabilityWindow(where: UnavailabilityWindowWhereUniqueInput!, create: UnavailabilityWindowCreateInput!, update: UnavailabilityWindowUpdateInput!): UnavailabilityWindow!
+  deleteUnavailabilityWindow(where: UnavailabilityWindowWhereUniqueInput!): UnavailabilityWindow
   deleteManyUnavailabilityWindows(where: UnavailabilityWindowWhereInput): BatchPayload!
 }
 
@@ -3363,6 +3366,7 @@ type Query {
   testCentre(where: TestCentreWhereUniqueInput!): TestCentre
   testCentres(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TestCentre]!
   testCentresConnection(where: TestCentreWhereInput, orderBy: TestCentreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestCentreConnection!
+  unavailabilityWindow(where: UnavailabilityWindowWhereUniqueInput!): UnavailabilityWindow
   unavailabilityWindows(where: UnavailabilityWindowWhereInput, orderBy: UnavailabilityWindowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UnavailabilityWindow]!
   unavailabilityWindowsConnection(where: UnavailabilityWindowWhereInput, orderBy: UnavailabilityWindowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnavailabilityWindowConnection!
   node(id: ID!): Node
@@ -3713,6 +3717,7 @@ input TestCentreWhereUniqueInput {
 }
 
 type UnavailabilityWindow {
+  type: UNAVAILABLETYPE
   startTime: DateTime!
   endTime: DateTime!
   reason: String
@@ -3727,6 +3732,7 @@ type UnavailabilityWindowConnection {
 }
 
 input UnavailabilityWindowCreateInput {
+  type: UNAVAILABLETYPE
   startTime: DateTime!
   endTime: DateTime!
   reason: String
@@ -3738,6 +3744,8 @@ type UnavailabilityWindowEdge {
 }
 
 enum UnavailabilityWindowOrderByInput {
+  type_ASC
+  type_DESC
   startTime_ASC
   startTime_DESC
   endTime_ASC
@@ -3751,6 +3759,7 @@ enum UnavailabilityWindowOrderByInput {
 }
 
 type UnavailabilityWindowPreviousValues {
+  type: UNAVAILABLETYPE
   startTime: DateTime!
   endTime: DateTime!
   reason: String
@@ -3776,13 +3785,25 @@ input UnavailabilityWindowSubscriptionWhereInput {
   NOT: [UnavailabilityWindowSubscriptionWhereInput!]
 }
 
+input UnavailabilityWindowUpdateInput {
+  type: UNAVAILABLETYPE
+  startTime: DateTime
+  endTime: DateTime
+  reason: String
+}
+
 input UnavailabilityWindowUpdateManyMutationInput {
+  type: UNAVAILABLETYPE
   startTime: DateTime
   endTime: DateTime
   reason: String
 }
 
 input UnavailabilityWindowWhereInput {
+  type: UNAVAILABLETYPE
+  type_not: UNAVAILABLETYPE
+  type_in: [UNAVAILABLETYPE!]
+  type_not_in: [UNAVAILABLETYPE!]
   startTime: DateTime
   startTime_not: DateTime
   startTime_in: [DateTime!]
@@ -3832,5 +3853,13 @@ input UnavailabilityWindowWhereInput {
   AND: [UnavailabilityWindowWhereInput!]
   OR: [UnavailabilityWindowWhereInput!]
   NOT: [UnavailabilityWindowWhereInput!]
+}
+
+input UnavailabilityWindowWhereUniqueInput {
+  type: UNAVAILABLETYPE
+}
+
+enum UNAVAILABLETYPE {
+  DVSA
 }
 `
