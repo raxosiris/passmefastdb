@@ -5,6 +5,7 @@ type Agent {
   id: ID! @unique
   zenId: Int @unique
   name: String!
+  name_lowercase: String
   email: String @unique
   booking: [Booking!]!
 }
@@ -16,6 +17,7 @@ type Instructor{
   zenId: Int @unique  # If they have a zendesk ID
   debt: [Debt!]!
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -30,6 +32,7 @@ type Student{
   bookings: [Booking!]!
   zenId: Int @unique  # If they have a zendesk ID
   name: String!
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -39,6 +42,7 @@ type Booking {
   id: ID! @unique
   zenId: Int @unique  # If they have a zendesk ID
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: Debt @unique
   agent: Agent!

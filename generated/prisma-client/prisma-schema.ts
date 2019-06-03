@@ -6,6 +6,7 @@ export const typeDefs = /* GraphQL */ `type Agent {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   email: String
   booking(where: BookingWhereInput, orderBy: BookingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Booking!]
 }
@@ -19,6 +20,7 @@ type AgentConnection {
 input AgentCreateInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   email: String
   booking: BookingCreateManyWithoutAgentInput
 }
@@ -36,6 +38,7 @@ input AgentCreateOneWithoutBookingInput {
 input AgentCreateWithoutBookingInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   email: String
 }
 
@@ -51,6 +54,8 @@ enum AgentOrderByInput {
   zenId_DESC
   name_ASC
   name_DESC
+  name_lowercase_ASC
+  name_lowercase_DESC
   email_ASC
   email_DESC
 }
@@ -59,6 +64,7 @@ type AgentPreviousValues {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   email: String
 }
 
@@ -83,6 +89,7 @@ input AgentSubscriptionWhereInput {
 input AgentUpdateDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   email: String
   booking: BookingUpdateManyWithoutAgentInput
 }
@@ -90,6 +97,7 @@ input AgentUpdateDataInput {
 input AgentUpdateInput {
   zenId: Int
   name: String
+  name_lowercase: String
   email: String
   booking: BookingUpdateManyWithoutAgentInput
 }
@@ -97,6 +105,7 @@ input AgentUpdateInput {
 input AgentUpdateManyMutationInput {
   zenId: Int
   name: String
+  name_lowercase: String
   email: String
 }
 
@@ -119,6 +128,7 @@ input AgentUpdateOneRequiredWithoutBookingInput {
 input AgentUpdateWithoutBookingDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   email: String
 }
 
@@ -169,6 +179,20 @@ input AgentWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]
@@ -257,6 +281,7 @@ type Booking {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: Debt
   agent: Agent!
@@ -274,6 +299,7 @@ type BookingConnection {
 input BookingCreateInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtCreateOneWithoutBookingInput
   agent: AgentCreateOneWithoutBookingInput!
@@ -310,6 +336,7 @@ input BookingCreateOneWithoutDebtInput {
 input BookingCreateWithoutAgentInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtCreateOneWithoutBookingInput
   student: StudentCreateOneWithoutBookingsInput
@@ -320,6 +347,7 @@ input BookingCreateWithoutAgentInput {
 input BookingCreateWithoutDebtInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   agent: AgentCreateOneWithoutBookingInput!
   student: StudentCreateOneWithoutBookingsInput
@@ -330,6 +358,7 @@ input BookingCreateWithoutDebtInput {
 input BookingCreateWithoutInstructorInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtCreateOneWithoutBookingInput
   agent: AgentCreateOneWithoutBookingInput!
@@ -340,6 +369,7 @@ input BookingCreateWithoutInstructorInput {
 input BookingCreateWithoutStudentInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtCreateOneWithoutBookingInput
   agent: AgentCreateOneWithoutBookingInput!
@@ -359,6 +389,8 @@ enum BookingOrderByInput {
   zenId_DESC
   name_ASC
   name_DESC
+  name_lowercase_ASC
+  name_lowercase_DESC
   bookedAt_ASC
   bookedAt_DESC
   amount_ASC
@@ -369,6 +401,7 @@ type BookingPreviousValues {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   bookedAt: DateTime
   amount: Float!
 }
@@ -410,6 +443,20 @@ input BookingScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   bookedAt: DateTime
   bookedAt_not: DateTime
   bookedAt_in: [DateTime!]
@@ -452,6 +499,7 @@ input BookingSubscriptionWhereInput {
 input BookingUpdateDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtUpdateOneWithoutBookingInput
   agent: AgentUpdateOneRequiredWithoutBookingInput
@@ -463,6 +511,7 @@ input BookingUpdateDataInput {
 input BookingUpdateInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtUpdateOneWithoutBookingInput
   agent: AgentUpdateOneRequiredWithoutBookingInput
@@ -474,6 +523,7 @@ input BookingUpdateInput {
 input BookingUpdateManyDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   amount: Float
 }
@@ -481,6 +531,7 @@ input BookingUpdateManyDataInput {
 input BookingUpdateManyMutationInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   amount: Float
 }
@@ -547,6 +598,7 @@ input BookingUpdateOneWithoutDebtInput {
 input BookingUpdateWithoutAgentDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtUpdateOneWithoutBookingInput
   student: StudentUpdateOneWithoutBookingsInput
@@ -557,6 +609,7 @@ input BookingUpdateWithoutAgentDataInput {
 input BookingUpdateWithoutDebtDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   agent: AgentUpdateOneRequiredWithoutBookingInput
   student: StudentUpdateOneWithoutBookingsInput
@@ -567,6 +620,7 @@ input BookingUpdateWithoutDebtDataInput {
 input BookingUpdateWithoutInstructorDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtUpdateOneWithoutBookingInput
   agent: AgentUpdateOneRequiredWithoutBookingInput
@@ -577,6 +631,7 @@ input BookingUpdateWithoutInstructorDataInput {
 input BookingUpdateWithoutStudentDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   bookedAt: DateTime
   debt: DebtUpdateOneWithoutBookingInput
   agent: AgentUpdateOneRequiredWithoutBookingInput
@@ -664,6 +719,20 @@ input BookingWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   bookedAt: DateTime
   bookedAt_not: DateTime
   bookedAt_in: [DateTime!]
@@ -1902,6 +1971,7 @@ type Instructor {
   zenId: Int
   debt(where: DebtWhereInput, orderBy: DebtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Debt!]
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -1921,6 +1991,7 @@ input InstructorCreateInput {
   zenId: Int
   debt: DebtCreateManyWithoutInstructorInput
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -1943,6 +2014,7 @@ input InstructorCreateWithoutBookingsInput {
   zenId: Int
   debt: DebtCreateManyWithoutInstructorInput
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -1955,6 +2027,7 @@ input InstructorCreateWithoutDebtInput {
   bookings: BookingCreateManyWithoutInstructorInput
   zenId: Int
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -1975,6 +2048,8 @@ enum InstructorOrderByInput {
   zenId_DESC
   name_ASC
   name_DESC
+  name_lowercase_ASC
+  name_lowercase_DESC
   joinedOn_ASC
   joinedOn_DESC
   phone_ASC
@@ -1993,6 +2068,7 @@ type InstructorPreviousValues {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2038,6 +2114,20 @@ input InstructorScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   joinedOn: DateTime
   joinedOn_not: DateTime
   joinedOn_in: [DateTime!]
@@ -2144,6 +2234,7 @@ input InstructorUpdateInput {
   zenId: Int
   debt: DebtUpdateManyWithoutInstructorInput
   name: String
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2155,6 +2246,7 @@ input InstructorUpdateInput {
 input InstructorUpdateManyDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2166,6 +2258,7 @@ input InstructorUpdateManyDataInput {
 input InstructorUpdateManyMutationInput {
   zenId: Int
   name: String
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2202,6 +2295,7 @@ input InstructorUpdateWithoutBookingsDataInput {
   zenId: Int
   debt: DebtUpdateManyWithoutInstructorInput
   name: String
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2214,6 +2308,7 @@ input InstructorUpdateWithoutDebtDataInput {
   bookings: BookingUpdateManyWithoutInstructorInput
   zenId: Int
   name: String
+  name_lowercase: String
   joinedOn: DateTime
   phone: String
   email: String
@@ -2281,6 +2376,20 @@ input InstructorWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   joinedOn: DateTime
   joinedOn_not: DateTime
   joinedOn_in: [DateTime!]
@@ -3377,6 +3486,7 @@ type Student {
   bookings(where: BookingWhereInput, orderBy: BookingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Booking!]
   zenId: Int
   name: String!
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3391,6 +3501,7 @@ input StudentCreateInput {
   bookings: BookingCreateManyWithoutStudentInput
   zenId: Int
   name: String!
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3403,6 +3514,7 @@ input StudentCreateOneWithoutBookingsInput {
 input StudentCreateWithoutBookingsInput {
   zenId: Int
   name: String!
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3419,6 +3531,8 @@ enum StudentOrderByInput {
   zenId_DESC
   name_ASC
   name_DESC
+  name_lowercase_ASC
+  name_lowercase_DESC
   phone_ASC
   phone_DESC
   email_ASC
@@ -3429,6 +3543,7 @@ type StudentPreviousValues {
   id: ID!
   zenId: Int
   name: String!
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3455,6 +3570,7 @@ input StudentUpdateInput {
   bookings: BookingUpdateManyWithoutStudentInput
   zenId: Int
   name: String
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3462,6 +3578,7 @@ input StudentUpdateInput {
 input StudentUpdateManyMutationInput {
   zenId: Int
   name: String
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3478,6 +3595,7 @@ input StudentUpdateOneWithoutBookingsInput {
 input StudentUpdateWithoutBookingsDataInput {
   zenId: Int
   name: String
+  name_lowercase: String
   phone: String
   email: String
 }
@@ -3527,6 +3645,20 @@ input StudentWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_lowercase: String
+  name_lowercase_not: String
+  name_lowercase_in: [String!]
+  name_lowercase_not_in: [String!]
+  name_lowercase_lt: String
+  name_lowercase_lte: String
+  name_lowercase_gt: String
+  name_lowercase_gte: String
+  name_lowercase_contains: String
+  name_lowercase_not_contains: String
+  name_lowercase_starts_with: String
+  name_lowercase_not_starts_with: String
+  name_lowercase_ends_with: String
+  name_lowercase_not_ends_with: String
   phone: String
   phone_not: String
   phone_in: [String!]
